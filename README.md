@@ -6,17 +6,17 @@ Un réseau pair-à-pair open source pour partager la puissance CPU/GPU via des V
 # Cahier des charges – ComputeTorrent 🚀
 
 ## Projet 📝
-~~~py
+```py
 "projet": "ComputeTorrent"
-~~~
+```
 
 ## Contexte 🌐
-~~~py
+```py
 "contexte": "Infrastructure distribuée visant à mutualiser la puissance de calcul GPU entre machines hétérogènes pour l'entraînement collaboratif de modèles IA."
-~~~
+```
 
 ## Objectifs 🎯
-~~~py
+```py
 "objectifs": [
   "Créer un réseau pair-à-pair de nœuds compute 🤝",
   "Standardiser les environnements d'exécution 🛠️",
@@ -24,20 +24,20 @@ Un réseau pair-à-pair open source pour partager la puissance CPU/GPU via des V
   "Implémenter un système de validation croisée 🔍",
   "Gérer la réputation et la performance des nœuds 🏆"
 ]
-~~~
+```
 
 ## Architecture 🏗️
-~~~py
+```py
 "architecture": {
   "client": "Soumet les tâches à exécuter 📤",
   "orchestrateur": "Répartit les tâches selon les capacités GPU 🎛️",
   "nœuds": "Exécutent les calculs ⚡",
   "validation_layer": "Vérifie les résultats et attribue des scores de confiance 🔒"
 }
-~~~
+```
 
 ## Standardisation de l’environnement 🐳
-~~~py
+```py
 "standardisation_environnement": {
   "base_image": "nvidia/cuda:12.2.0-base-ubuntu22.04 🖥️",
   "packages": [
@@ -51,10 +51,10 @@ Un réseau pair-à-pair open source pour partager la puissance CPU/GPU via des V
   ],
   "extra_index_url": "https://download.pytorch.org/whl/cu122 🌐"
 }
-~~~
+```
 
 ## Validation ✅
-~~~py
+```py
 "validation": {
   "étapes": [
     "Exécution par au moins 2 nœuds 🤖🤖",
@@ -63,10 +63,10 @@ Un réseau pair-à-pair open source pour partager la puissance CPU/GPU via des V
     "Attribution de score de fiabilité aux nœuds 🏅"
   ]
 }
-~~~
+```
 
 ## Attribution des tâches 🏷️
-~~~py
+```py
 "attribution_tâches": {
   "critères": [
     "Benchmark GPU (VRAM, FLOPS, température) 📈",
@@ -75,10 +75,10 @@ Un réseau pair-à-pair open source pour partager la puissance CPU/GPU via des V
     "Vitesse d'exécution ⚡"
   ]
 }
-~~~
+```
 
 ## API 🔌
-~~~py
+```py
 "api": {
   "submit_job": {
     "method": "POST 📨",
@@ -109,32 +109,32 @@ Un réseau pair-à-pair open source pour partager la puissance CPU/GPU via des V
     }
   }
 }
-~~~
+```
 
 ## Sécurité 🔒
-~~~py
+```py
 "sécurité": [
   "Isolation via conteneurs 🐳",
   "Chiffrement des échanges 🔑",
   "Vérification des signatures de code ✍️",
   "Système de réputation 🏆"
 ]
-~~~
+```
 
 ## Scalabilité 📈
-~~~py
+```py
 "scalabilité": [
   "Ajout dynamique de nœuds ➕",
   "Répartition adaptative ⚖️",
   "Monitoring en temps réel 📡"
 ]
-~~~
+```
 
 ## Limitations connues ⚠️
-~~~py
+```py
 "limitations_connues": [
   "Non-déterminisme sur certains GPU 🎲",
   "Variabilité des performances réseau 🌐",
   "Fiabilité dépendante des machines participantes 🖥️"
 ]
-~~~
+```
