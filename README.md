@@ -1,125 +1,93 @@
 # ComputeTorrent
 Un réseau pair-à-pair open source pour partager la puissance CPU/GPU via des VM isolées et contribuer à des calculs IA ou scientifiques.
 
-# Cahier des Charges — ComputeTorrent
+## 🚀 Objectif du projet
 
-## 1. Contexte
+**ComputeTorrent** est une plateforme décentralisée qui permet à chacun de **partager la puissance de calcul** de son ordinateur (CPU, GPU) avec d'autres utilisateurs via un réseau pair-à-pair.  
+L’idée est simple : au lieu de dépendre de serveurs coûteux ou de services cloud, on utilise les machines des volontaires pour exécuter des tâches lourdes comme :
 
-ComputeTorrent est une infrastructure distribuée visant à mutualiser la puissance de calcul GPU entre plusieurs machines hétérogènes. Elle permet l'entraînement collaboratif de modèles d'apprentissage automatique (embeddings, LLM, etc.) via un protocole de validation décentralisé et une standardisation logicielle.
+- L'entraînement de modèles d'intelligence artificielle (IA)
+- Le rendu d’images ou de vidéos
+- Des calculs scientifiques ou statistiques
 
----
-
-## 2. Objectifs
-
-- Créer un réseau pair-à-pair de nœuds compute  
-- Standardiser les environnements d'exécution  
-- Assurer la reproductibilité et la fiabilité des calculs  
-- Implémenter un système de validation croisée  
-- Gérer la réputation et la performance des nœuds  
+Ce système repose sur des environnements isolés (machines virtuelles ou containers) pour garantir la sécurité et la cohérence des résultats.
 
 ---
 
-## 3. Architecture Générale
+## 👥 Pour qui ?
+
+- Les développeurs qui veulent contribuer à un projet open source ambitieux
+- Les chercheurs ou créateurs qui ont besoin de puissance de calcul
+- Les curieux qui veulent apprendre à créer des systèmes distribués
+
+---
+
+## 🛠️ Comment ça fonctionne (en résumé)
+
+1. Chaque utilisateur installe un **client ComputeTorrent** sur sa machine.
+2. Ce client détecte les ressources disponibles (CPU, GPU, RAM).
+3. Lorsqu’une tâche est soumise au réseau, elle est découpée en petits blocs.
+4. Ces blocs sont envoyés à plusieurs machines pour être exécutés.
+5. Les résultats sont vérifiés, agrégés, puis renvoyés à l’utilisateur demandeur.
+
+---
+
+## 🐍 Langage utilisé
+
+Le projet commence en **Python**, car c’est un langage :
+
+- Facile à apprendre
+- Très utilisé en IA et en science des données
+- Compatible avec les bibliothèques GPU (comme PyTorch, TensorFlow)
+- Bien adapté à la gestion de containers (Docker, etc.)
+
+Les premiers scripts seront donc écrits en Python, avec une structure simple et modulaire.
 
 ~~~py
-[Client] → [Orchestrateur] → [Nœuds ComputeTorrent]
-         ↘ [Validation Layer] ↙
-~~~
-
-- Client : soumet les tâches à exécuter  
-- Orchestrateur : répartit les tâches selon les capacités GPU  
-- Nœuds : exécutent les calculs  
-- Validation Layer : vérifie les résultats et attribue des scores de confiance  
-
----
-
-## 4. Standardisation des Environnements
-
-~~~py
-FROM nvidia/cuda:12.2.0-base-ubuntu22.04
-
-RUN apt update && apt install -y python3-pip git
-RUN pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu122
-
-ENV PYTHONUNBUFFERED=1
-~~~
-
----
-
-## 5. Protocole de Validation
-
-~~~py
-1. Chaque tâche est exécutée par au moins 2 nœuds différents  
-2. Les résultats sont comparés via hash ou métriques numériques  
-3. Si divergence > seuil défini, la tâche est rejetée ou réattribuée  
-4. Les nœuds ayant validé reçoivent un score de fiabilité  
-~~~
-
----
-
-## 6. Attribution des Tâches
-
-~~~py
-- Benchmark initial du GPU (VRAM, FLOPS, température)  
-- Attribution pondérée selon :  
-  - Disponibilité  
-  - Historique de fiabilité  
-  - Vitesse d'exécution  
+# Exemple de structure de dossier (à venir)
+compute_torrent/
+├── client/
+├── orchestrator/
+├── tasks/
+├── utils/
+└── README.md
 ~~~
 
 ---
 
-## 7. API (extraits)
+## 📦 Ce que le projet inclura plus tard
+
+- Une interface web pour suivre les tâches en cours
+- Un système de réputation pour les machines fiables
+- Des outils de monitoring (CPU/GPU, température, logs)
+- Une API pour soumettre des jobs et récupérer les résultats
+
+---
+
+## 🧑‍💻 Comment commencer à coder ?
+
+1. Cloner le dépôt GitHub (à venir)
+2. Installer les dépendances Python (via `pip`)
+3. Lancer le client local et tester avec une tâche simple
+4. Contribuer à l’orchestrateur ou à la validation des résultats
 
 ~~~py
-POST /submit-job
-  body: {
-    model: "bert-base",
-    dataset: "custom.csv",
-    epochs: 5
-  }
-
-GET /job-status?id=12345
-  response: {
-    status: "running",
-    progress: 62.5
-  }
-
-GET /results?id=12345
-  response: {
-    accuracy: 0.87,
-    hash: "a9f3c..."
-  }
+# Exemple de commande pour installer les dépendances
+pip install -r requirements.txt
 ~~~
 
 ---
 
-## 8. Sécurité et Intégrité
+## 🧭 Prochaines étapes
 
-~~~py
-- Isolation des environnements via conteneurs  
-- Chiffrement des échanges entre nœuds  
-- Vérification des signatures de code  
-- Système de réputation pour exclure les nœuds malveillants  
-~~~
+- Définir les premiers types de tâches (ex: calcul de Pi, rendu d’image)
+- Créer un orchestrateur simple pour distribuer les blocs
+- Mettre en place un système de validation par redondance
+- Documenter chaque module pour faciliter la contribution
 
 ---
 
-## 9. Scalabilité
+## 💬 En résumé
 
-~~~py
-- Ajout dynamique de nœuds  
-- Répartition adaptative des tâches  
-- Monitoring en temps réel  
-~~~
-
----
-
-## 10. Limitations Connues
-
-~~~py
-- Non-déterminisme possible sur certains GPU  
-- Variabilité des performances réseau  
-- Fiabilité dépendante de la qualité des machines participantes  
-~~~
-
+ComputeTorrent est une aventure technique et communautaire.  
+Le but est de **rendre la puissance de calcul accessible, distribuée et sécurisée**, en s’appuyant sur Python pour démarrer rapidement et efficacement.
